@@ -34,3 +34,18 @@ async def insert(details: dict):
 
     cur.close()
     return {"Records": "Inserted"}
+
+
+
+# name
+# age
+# gender
+# bldgroup
+# strss lvl : 
+# consultant name :
+# 
+#
+
+
+
+# 
