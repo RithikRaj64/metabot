@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './Firebase';
 
@@ -34,9 +34,9 @@ export default function SignIn() {
 
     return (
         <div className="bg-pink-200 h-screen flex justify-center items-center">
-            <div className="bg-white w-96 h-96 rounded-lg shadow-lg flex flex-col justify-center items-center">
-                <h1 className="text-3xl font-bold">Sign In</h1>
-                <div className="flex flex-col justify-center items-center mt-8">
+            <div className="bg-white w-96 py-5 rounded-lg shadow-lg flex flex-col justify-center items-center">
+                <div className="flex flex-col justify-center items-center mb-0">
+                    <h1 className="text-3xl font-bold mb-2">Sign In</h1>
                     <input
                         type="text"
                         placeholder="Email"
@@ -55,6 +55,9 @@ export default function SignIn() {
                     >
                         Sign In
                     </button>
+                </div>
+                <div className="flex flex-col justify-center items-center h-full">
+                    <p className="text-sm text-gray-500 mt-3">Don't have an account? <Link to="/signup" className="text-blue-500">Sign up</Link></p>
                 </div>
             </div>
         </div>
