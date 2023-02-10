@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../Styles/Signin.css";
 import { Box, FormControl, Input, InputLabel, FormHelperText, Button } from '@mui/material';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from "./Firebase";
