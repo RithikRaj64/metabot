@@ -16,7 +16,7 @@ export default function NavBar() {
                 <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
                     <Link className="mr-5 hover:text-gray-900">Second Link</Link>
                     <Link className="mr-5 hover:text-gray-900">Third Link</Link>
-                    <Link className="mr-5 hover:text-gray-900" to={"/sign-in"}>Sign in</Link>
+                    <Link className="mr-5 hover:text-gray-900" to={"/signin"}>Sign in</Link>
                 </nav>
                 <Link to="/signup">
                     <button className="inline-flex items-center bg-pink-500 text-white font-semibold border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
