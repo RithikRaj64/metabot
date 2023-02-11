@@ -75,7 +75,7 @@ function Form() {
         }
     }
 
-    function pwValidate(pw){
+    function pwValidate(pw) {
         let strength = 0;
         if (pw.match(/(?=.*[a-z])/)) {
             strength++;
@@ -115,11 +115,41 @@ function Form() {
                 <h1 className="text-3xl font-bold text-gray-800 mt-5">Sign Up</h1>
                 <div className="flex flex-col justify-center items-center mt-8">
                     <input
+                        type="text"
+                        placeholder="Patient ID"
+                        className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
+                    />
+                    <input
+                        type="text"
+                        placeholder="Patient Name"
+                        className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
+                    />
+                    {/* Age and blood group */}
+                    <div className="flex flex-row justify-between items-center">
+                        <input
+                            type="number"
+                            placeholder="Age"
+                            className="w-32 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
+                        />
+                        <input
+                            type="text"
+                            placeholder="Blood Group"
+                            className="w-32 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
+                        />
+                    </div>
+                    <input
                         type="email"
                         placeholder="Email"
                         className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
                         onChange={handleUn}
                     />
+                    <input
+                        type="tel"
+                        placeholder="Consultant Contact Number"
+                        className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
+                        onChange={handleUn}
+                    />
+
                     <input
                         type="password"
                         placeholder="Password"
