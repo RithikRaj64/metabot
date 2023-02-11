@@ -15,13 +15,13 @@ function PatientsRecords() {
     }
 
     return (
-        <>
+        <div className="">
             <form>
                 <input type="number" name="id" onChange={handleChange} />
                 <input type="text" name="name" onChange={handleChange} />
                 <button onClick={handleSubmit}>Submit</button>
             </form>
-        </>
+        </div>
     )
 }
 

@@ -58,9 +58,8 @@ function Form() {
 
     }
 
-    const handleCpw = (event) => {
+    function handleCpw(event) {
         const val = event.target.value;
-
         if (val === "") {
             setCpwtxt("Confirm your Password");
             setCpwc("c0");
@@ -76,29 +75,24 @@ function Form() {
         }
     }
 
-    const pwValidate = (pw) => {
+    function pwValidate(pw){
         let strength = 0;
-
         if (pw.match(/(?=.*[a-z])/)) {
             strength++;
         }
-
         if (pw.match(/(?=.*[A-Z])/)) {
             strength++;
         }
-
         if (pw.match(/(?=.*[0-9])/)) {
             strength++;
         }
-
         if (pw.match(/(?=.*[!@#\$%\^&\*])/)) {
             strength++;
         }
-
         return strength;
     }
 
-    const handleSubmit = () => {
+    function handleSubmit() {
         if (pok && cpok) {
             createUserWithEmailAndPassword(auth, email, pw)
                 .then((userCredential) => {
@@ -113,58 +107,9 @@ function Form() {
                     alert("Something went wrong. Please try again!");
                 });
         }
-
     }
 
     return (
-        // <Box className='box' sx={{
-        //     backgroundColor: '#f06292',
-        //     width: 450,
-        //     height: 520,
-        //     borderRadius: 25
-        // }}>
-        //     <div className='box-conts'>
-
-        //         <center><h2>SIGN UP</h2></center>
-
-        //         <FormControl variant="standard">
-        //             <InputLabel htmlFor="uname">Email</InputLabel>
-        //             <Input
-        //                 id="uname"
-        //                 onChange={handleUn}
-        //             />
-        //         </FormControl>
-        //         <br /><br />
-
-        //         <FormControl variant="standard">
-        //             <InputLabel htmlFor="pw">Password</InputLabel>
-        //             <Input
-        //                 type="password"
-        //                 id="pw"
-        //                 onChange={handlePw}
-        //                 className={{}}
-        //             />
-        //             <FormHelperText id="pwl-text" sx={{ color: "red", }}>{pwlength}</FormHelperText>
-        //             <FormHelperText id={pwc} sx={{ color: { pwc } }}>{pwtxt}</FormHelperText>
-        //         </FormControl>
-        //         <br /><br />
-
-        //         <FormControl variant="standard">
-        //             <InputLabel htmlFor="cpw">Confirm Password</InputLabel>
-        //             <Input
-        //                 type="password"
-        //                 id="cpw"
-        //                 onChange={handleCpw}
-        //             />
-        //             <FormHelperText id={cpwc} sx={{ color: "red" }}>{cpwtxt}</FormHelperText>
-        //         </FormControl>
-        //         <br /><br />
-
-        //         <center><Button variant="oultined" onClick={handleSubmit}>SignUp</Button></center>
-        //     </div>
-        // </Box>
-
-        // TODO: rewrite above code in Tailwind CSS with plugins like @tailwindcss/forms and @tailwindcss/typography
         <div className="bg-pink-200 h-screen flex justify-center items-center">
             <div className="bg-white w-96 h-96 rounded-lg shadow-lg flex flex-col justify-center items-center">
                 <h1 className="text-3xl font-bold text-gray-800 mt-5">Sign Up</h1>
