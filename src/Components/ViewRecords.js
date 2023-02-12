@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+// import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function ViewRecords() {
-    const nav = useNavigate();
+    // const nav = useNavigate();
     const [details, setDetails] = useState({});
+    const [results, setResults] = useState([]);
 
     const handleChange = (event) => {
         setDetails({ ...details, [event.target.name]: event.target.value });
@@ -17,9 +18,9 @@ function ViewRecords() {
         console.log(details);
 
         const r = await axios.post('http://localhost:8000/vitals/get', details);
-        const res = await r.data
-
+        const res = await r.data;
         console.log(res)
+        setResults(res);
     }
 
     return (
@@ -42,35 +43,37 @@ function ViewRecords() {
                     </button>
                 </div>
             </div>
-            <Records />
+            <table className="w-full text-sm text-left text-gray-500">
+                <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
+                    <tr>
+                        {/* <th>S.No.</th> */}
+                        <th class="px-3 py-2 text-center">Heartrate</th>
+                        <th class="px-3 py-2 text-center">Oxygen Level</th>
+                        <th class="px-3 py-2 text-center">Systolic Blood Pressure</th>
+                        <th class="px-3 py-2 text-center">Diastolic Blood Pressure</th>
+                        <th class="px-3 py-2 text-center">Stress Level</th>
+                        <th class="px-3 py-2 text-center">Body Temperature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        results.map((ele) => {
+                            return (
+                                <tr>
+                                    {/* <td>{ele.id}</td> */}
+                                    <td class="px-3 py-2 text-center text-gray-800">{ele.heartrate}</td>
+                                    <td class="px-3 py-2 text-center text-gray-800">{ele.oxygen}</td>
+                                    <td class="px-3 py-2 text-center text-gray-800">{ele.bpUp}</td>
+                                    <td class="px-3 py-2 text-center text-gray-800">{ele.bpLow}</td>
+                                    <td class="px-3 py-2 text-center text-gray-800">{ele.stress}</td>
+                                    <td class="px-3 py-2 text-center text-gray-800">{ele.temp}</td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
         </div>
-    )
-}
-
-function Records() {
-    return (
-        <table className="table-auto ">
-            <thead>
-                <tr>
-                    <th>Heartrate</th>
-                    <th>Oxygen Level</th>
-                    <th>Systolic Blood Pressure</th>
-                    <th>Diastolic Blood Pressure</th>
-                    <th>Stress Level</th>
-                    <th>Body Temperature</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Heartrate</td>
-                    <td>Oxygen Level</td>
-                    <td>Systolic Blood Pressure</td>
-                    <td>Diastolic Blood Pressure</td>
-                    <td>Stress Level</td>
-                    <td>Body Temperature</td>
-                </tr>
-            </tbody>
-        </table>
     )
 }
 
