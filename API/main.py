@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import datetime
 from courier import alert
 import sqlite3
-
+import uvicorn
 
 app = FastAPI()
 
@@ -124,3 +124,6 @@ async def getVitals(details: dict):
 
     print(data)
     return data
+
+if __name__ == '__main__':
+    uvicorn.run(app)
