@@ -4,7 +4,7 @@ function Home() {
     return (
         <div className="container-fluid min-h-screen bg-pink-100">
             <NavBar />
-            <h1>hello</h1>
+            <h1>hello {window.sessionStorage.getItem('id')}</h1>
         </div>
     );
 }

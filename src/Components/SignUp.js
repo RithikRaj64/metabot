@@ -1,77 +1,29 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import { Box, FormControl, Input, InputLabel, FormHelperText, Button } from '@mui/material';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from "./Firebase";
 
 function Form() {
     const nav = useNavigate();
-    const [email, setEmail] = useState("");
-    const [pwtxt, setPwtxt] = useState("");
-    const [pwlength, setPwlength] = useState("");
-    const [cpwtxt, setCpwtxt] = useState("");
-
-    const [pw, setPw] = useState("");
-
-    const [pwc, setPwc] = useState("c0");
-    const [cpwc, setCpwc] = useState("c0");
+    const [details, setDetails] = useState({});
 
     const [pok, setPok] = useState(false);
     const [cpok, setCpok] = useState(false);
 
-    const handleUn = (event) => {
-        setEmail(event.target.value);
+    const handleChange = (event) => {
+        setDetails({ ...details, [event.target.name]: event.target.value });
     }
 
     const handlePw = (event) => {
         const val = event.target.value;
-        setPw(val);
-
-        if (val.length < 8) {
-            setPwlength("At least 8 characters");
-        }
-        else if (val.length >= 8) {
-            setPwlength("");
-        }
-
-        if (val === "") {
-            setPwtxt("Please enter your Password");
-            setPwc("c0");
-        }
-        else if (pwValidate(event.target.value) === 1) {
-            setPwtxt("Seriously..!!");
-            setPwc("c1");
-        }
-        else if (pwValidate(event.target.value) === 2) {
-            setPwtxt("Try a little harder");
-            setPwc("c2");
-        }
-        else if (pwValidate(event.target.value) === 3) {
-            setPwtxt("Almost there");
-            setPwc("c3");
-        }
-        else if (pwValidate(event.target.value) === 4 && val.length >= 8) {
-            setPwtxt("Voila! This is a Firewall..🔥");
-            setPwc("c4");
+        if (pwValidate(val) === 4 && val.length >= 8) {
             setPok(true);
+            setDetails({ ...details, [event.target.name]: val });
         }
-
     }
 
     function handleCpw(event) {
         const val = event.target.value;
-        if (val === "") {
-            setCpwtxt("Confirm your Password");
-            setCpwc("c0");
-        }
-        else if (val === pw) {
-            setCpwtxt("Passwords Matched..😉");
-            setCpwc("c4");
+        if (val === details["password"]) {
             setCpok(true);
-        }
-        else {
-            setCpwtxt("Passwords don't match");
-            setCpwc("c2");
         }
     }
 
@@ -92,66 +44,78 @@ function Form() {
         return strength;
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
         if (pok && cpok) {
-            createUserWithEmailAndPassword(auth, email, pw)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    console.log(user);
-                    nav("/signin");
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.log(errorCode, errorMessage);
-                    alert("Something went wrong. Please try again!");
-                });
+            console.log(details);
+
+            const res = await fetch('http://localhost:8000/signup', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(details)
+            });
+            console.log(res);
+
+            window.sessionStorage.setItem('id', details.id);
         }
     }
 
     return (
         <div className="bg-pink-200 h-screen flex justify-center items-center">
-            <div className="bg-white w-96 h-96 rounded-lg shadow-lg flex flex-col justify-center items-center">
+            <div className="bg-white w-96 h-150 rounded-lg shadow-lg flex flex-col justify-center items-center">
                 <h1 className="text-3xl font-bold text-gray-800 mt-5">Sign Up</h1>
                 <div className="flex flex-col justify-center items-center mt-8">
                     <input
                         type="text"
+                        name="id"
                         placeholder="Patient ID"
                         className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
+                        onChange={handleChange}
                     />
                     <input
                         type="text"
+                        name="name"
                         placeholder="Patient Name"
                         className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
+                        onChange={handleChange}
                     />
                     {/* Age and blood group */}
-                    <div className="flex flex-row justify-between items-center">
-                        <input
-                            type="number"
-                            placeholder="Age"
-                            className="w-32 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Blood Group"
-                            className="w-32 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
-                        />
-                    </div>
+                    {/* <div className="flex flex-row justify-between items-center"> */}
                     <input
-                        type="email"
-                        placeholder="Email"
+                        type="number"
+                        name="age"
+                        placeholder="Age"
                         className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
-                        onChange={handleUn}
+                        onChange={handleChange}
                     />
                     <input
-                        type="tel"
-                        placeholder="Consultant Contact Number"
+                        type="text"
+                        name="bloodGrp"
+                        placeholder="Blood Group"
                         className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
-                        onChange={handleUn}
+                        onChange={handleChange}
+                    />
+                    {/* </div> */}
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="email"
+                        name='consEmail'
+                        placeholder="Consultant Email"
+                        className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
+                        onChange={handleChange}
                     />
 
                     <input
                         type="password"
+                        name="password"
                         placeholder="Password"
                         className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
                         onChange={handlePw}

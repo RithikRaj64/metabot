@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './Firebase';
+import axios from 'axios';
 
 export default function SignIn() {
     const nav = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    // const [res, setRes] = useState({});
     const handleEmail = (event) => {
         setEmail(event.target.value);
     }
@@ -15,21 +15,34 @@ export default function SignIn() {
         setPassword(event.target.value);
     }
 
-    const handleSubmit = () => {
-        signInWithEmailAndPassword(auth, email, password)
-            .then(
-                (userCredential) => {
-                    const user = userCredential.user;
-                    console.log(user);
-                    nav("/");
-                }
-            )
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
-                alert("Something went wrong. Please try again!");
-            });
+    const handleSubmit = async () => {
+        const details = {
+            "email": email,
+            "password": password
+        }
+
+        console.log(details);
+
+        const r = await axios.post('http://localhost:8000/signin', details);
+        //     method: 'POST',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(details)
+        // });
+
+        const res = await r.data;
+        window.sessionStorage.setItem('id', res.id);
+
+        if (res.valid) {
+            nav("/");
+        }
+        else {
+            const reason = res.reason;
+            alert(reason);
+        }
+        console.log(res.valid);
     }
 
     return (
@@ -38,7 +51,7 @@ export default function SignIn() {
                 <div className="flex flex-col justify-center items-center mb-0">
                     <h1 className="text-3xl font-bold mb-2">Sign In</h1>
                     <input
-                        type="text"
+                        type="email"
                         placeholder="Email"
                         className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500"
                         onChange={handleEmail}
