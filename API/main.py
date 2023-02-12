@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+import datetime
 from courier import alert
 import sqlite3
 
@@ -83,16 +83,19 @@ async def addVitals(details: dict):
             bpUp INTEGER NOT NULL,
             bpLow INTEGER NOT NULL,
             stress INTEGER NOT NULL,
-            temp FLOAT NOT NULL
+            temp FLOAT NOT NULL,
+            time VARCHR(75) NOT NULL
         )'''
     )
 
+    details["time"] = datetime.datetime.now()
+
     cur.execute(
-        f"INSERT INTO vitals VALUES (:id, :heartrate, :oxygen, :bpUp, :bpLow, :stress, :temp)", details)
+        f"INSERT INTO vitals VALUES (:id, :heartrate, :oxygen, :bpUp, :bpLow, :stress, :temp, :time)", details)
     con.commit()
 
     for x in details.keys():
-        if x == "id":
+        if x == "id" or x == "time":
             continue
         if (float(details[x]) > float(baseCondition[x])):
             res = cur.execute(

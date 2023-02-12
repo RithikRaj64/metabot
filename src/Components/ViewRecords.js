@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function ViewRecords() {
-    // const nav = useNavigate();
     const [details, setDetails] = useState({});
     const [results, setResults] = useState([]);
 
@@ -26,12 +24,12 @@ function ViewRecords() {
     return (
         <div className="bg-pink-200 h-screen flex flex-row">
             <div className="bg-white w-96 h-150 rounded-lg shadow-lg flex flex-col justify-center items-center p-5">
-                <h1 className="text-3xl font-bold text-gray-800 mt-3">Add Vitals</h1>
+                <h1 className="text-3xl font-bold text-gray-800 mt-3">Get Records</h1>
                 <div className="flex flex-col justify-center items-center mt-3">
                     <input
                         type="text"
                         name="id"
-                        placeholder="Heartrate in bpm"
+                        placeholder="Enter Patient ID"
                         className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
                         onChange={handleChange}
                     />
@@ -46,13 +44,13 @@ function ViewRecords() {
             <table className="w-full text-sm text-left text-gray-500">
                 <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
                     <tr>
-                        {/* <th>S.No.</th> */}
                         <th class="px-3 py-2 text-center">Heartrate</th>
                         <th class="px-3 py-2 text-center">Oxygen Level</th>
                         <th class="px-3 py-2 text-center">Systolic Blood Pressure</th>
                         <th class="px-3 py-2 text-center">Diastolic Blood Pressure</th>
                         <th class="px-3 py-2 text-center">Stress Level</th>
                         <th class="px-3 py-2 text-center">Body Temperature</th>
+                        <th class="px-3 py-2 text-center">Time</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,13 +58,13 @@ function ViewRecords() {
                         results.map((ele) => {
                             return (
                                 <tr>
-                                    {/* <td>{ele.id}</td> */}
                                     <td class="px-3 py-2 text-center text-gray-800">{ele.heartrate}</td>
                                     <td class="px-3 py-2 text-center text-gray-800">{ele.oxygen}</td>
                                     <td class="px-3 py-2 text-center text-gray-800">{ele.bpUp}</td>
                                     <td class="px-3 py-2 text-center text-gray-800">{ele.bpLow}</td>
                                     <td class="px-3 py-2 text-center text-gray-800">{ele.stress}</td>
                                     <td class="px-3 py-2 text-center text-gray-800">{ele.temp}</td>
+                                    <td class="px-3 py-2 text-center text-gray-800">{ele.time}</td>
                                 </tr>
                             )
                         })
