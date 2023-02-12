@@ -81,8 +81,7 @@ function Form() {
                         className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
                         onChange={handleChange}
                     />
-                    {/* Age and blood group */}
-                    {/* <div className="flex flex-row justify-between items-center"> */}
+
                     <input
                         type="number"
                         name="age"
@@ -97,7 +96,6 @@ function Form() {
                         className="w-72 h-10 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-pink-500 mt-4"
                         onChange={handleChange}
                     />
-                    {/* </div> */}
                     <input
                         type="email"
                         name="email"

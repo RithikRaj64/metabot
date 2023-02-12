@@ -6,7 +6,6 @@ export default function SignIn() {
     const nav = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    // const [res, setRes] = useState({});
     const handleEmail = (event) => {
         setEmail(event.target.value);
     }
@@ -24,13 +23,6 @@ export default function SignIn() {
         console.log(details);
 
         const r = await axios.post('http://localhost:8000/signin', details);
-        //     method: 'POST',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(details)
-        // });
 
         const res = await r.data;
         window.sessionStorage.setItem('id', res.id);

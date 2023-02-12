@@ -16,15 +16,6 @@ function AddVitals() {
         details["id"] = window.sessionStorage.getItem("id");
         console.log(details);
 
-        // const res = await fetch('http://localhost:8000/vitals/add', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(details)
-        // });
-
         const r = await axios.post('http://localhost:8000/vitals/add', details);
         const res = await r.data
 
@@ -34,8 +25,6 @@ function AddVitals() {
         else {
             alert("Everything looks great!!")
         }
-
-
     }
 
     return (
@@ -94,9 +83,6 @@ function AddVitals() {
                         Submit
                     </button>
                 </div>
-                {/* <div className="flex flex-col justify-center items-center h-full">
-                    <p className="text-sm text-gray-500 mt-2">Already have an account? <Link to="/signin" className="text-blue-500">Sign in</Link></p>
-                </div> */}
             </div>
         </div>
     )
