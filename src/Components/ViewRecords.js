@@ -15,7 +15,7 @@ function ViewRecords() {
         details["id"] = window.sessionStorage.getItem("id");
         console.log(details);
 
-        const r = await axios.post('http://localhost:8000/vitals/get', details);
+        const r = await axios.post('http://localhost:8080/vitals/get', details);
         const res = await r.data;
         console.log(res)
         setResults(res);

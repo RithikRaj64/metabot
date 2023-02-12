@@ -16,7 +16,7 @@ function AddVitals() {
         details["id"] = window.sessionStorage.getItem("id");
         console.log(details);
 
-        const r = await axios.post('http://localhost:8000/vitals/add', details);
+        const r = await axios.post('http://localhost:8080/vitals/add', details);
         const res = await r.data
 
         if (res.vitals === "abnormal") {

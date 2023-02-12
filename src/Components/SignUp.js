@@ -48,7 +48,7 @@ function Form() {
         if (pok && cpok) {
             console.log(details);
 
-            const res = await fetch('http://localhost:8000/signup', {
+            const res = await fetch('http://localhost:8080/signup', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
